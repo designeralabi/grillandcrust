@@ -2,5 +2,6 @@ class Category {
   String imagePath;
   String title;
   String subtitle;
-  Category(this.imagePath, this.title, this.subtitle);
+  int price;
+  Category(this.imagePath, this.title, this.subtitle, [this.price = 0]);
 }

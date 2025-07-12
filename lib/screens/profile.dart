@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:grill_app/card.dart';
 import 'package:grill_app/theme/colors.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -13,20 +15,43 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   final List<Map<String, dynamic>> categories = const [
     {'imagePath': 'assets/images/burger.png', 'title': 'Burgers'},
-    {'imagePath': 'assets/images/shawarma_b.svg', 'title': 'Pizza'},
+    {'imagePath': 'assets/images/burger.png', 'title': 'Pizza'}, // Changed from SVG to PNG
     {'imagePath': 'assets/images/delivery_guy.png', 'title': 'Drinks'},
     {'imagePath': 'assets/images/burger.png', 'title': 'Salads'},
     {'imagePath': 'assets/images/burger.png', 'title': 'Desserts'},
     {'imagePath': 'assets/images/burger.png', 'title': 'Snacks'},
   ];
 
-  // final List <Map<Category>>
+  // Helper function to determine if image is SVG
+  bool _isSvgImage(String imagePath) {
+    return imagePath.toLowerCase().endsWith('.svg');
+  }
+
+  // Helper function to build image widget
+  Widget _buildImageWidget(String imagePath, {double? width, double? height, BoxFit? fit}) {
+    if (_isSvgImage(imagePath)) {
+      return SvgPicture.asset(
+        imagePath,
+        width: width,
+        height: height,
+        fit: fit ?? BoxFit.contain,
+      );
+    } else {
+      return Image.asset(
+        imagePath,
+        width: width,
+        height: height,
+        fit: fit ?? BoxFit.cover,
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey.shade100,
       appBar: AppBar(
+        backgroundColor: Colors.grey.shade100,
         leading: Icon(Icons.menu, size: 24),
         actions: [
           GestureDetector(
@@ -188,8 +213,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 color: index == 0
                                     ? Colors.white
                                     : AppColors.bgColor,
-                                image: DecorationImage(
-                                  image: AssetImage(category['imagePath']),
+                              ),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(100),
+                                child: _buildImageWidget(
+                                  category['imagePath'],
+                                  width: 50,
+                                  height: 55,
                                   fit: BoxFit.cover,
                                 ),
                               ),
@@ -215,9 +245,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   },
                 ),
               ),
+
+              SizedBox(height: 24),
+
+              Text(
+                "Popular Items",
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+              ),
+
+              SizedBox(height: 12),
+
+              CategoryCard(),
             ],
           ),
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'home'),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'fav'),
+        ],
       ),
     );
   }

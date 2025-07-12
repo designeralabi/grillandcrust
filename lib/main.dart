@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:grill_app/screens/card_detailed.dart';
 import 'package:grill_app/screens/home.dart';
 import 'package:grill_app/screens/profile.dart';
 
@@ -14,7 +15,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      routes: {'/profile': (context) => ProfileScreen()},
+      routes: {
+        '/profile': (context) => ProfileScreen(),
+        '/card_detailed': (context) => CardDetailed(),
+      },
       // title: 'Flutter Demo',
       home: Home(title: 'Home'),
     );
