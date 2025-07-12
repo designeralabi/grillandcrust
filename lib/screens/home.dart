@@ -35,7 +35,7 @@ class Home extends StatelessWidget {
                   SizedBox(height: 30),
 
                   Padding(
-                    padding: EdgeInsetsGeometry.symmetric(horizontal: 22),
+                    padding: EdgeInsets.symmetric(horizontal: 22),
                     child: Text(
                       'Where Burgers meet Pizzas with a Sizzle and a Slice!',
                       textAlign: TextAlign.center,
