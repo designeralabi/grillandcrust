@@ -15,7 +15,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   final List<Map<String, dynamic>> categories = const [
     {'imagePath': 'assets/images/burger.png', 'title': 'Burgers'},
-    {'imagePath': 'assets/images/burger.png', 'title': 'Pizza'}, // Changed from SVG to PNG
+    {
+      'imagePath': 'assets/images/burger.png',
+      'title': 'Pizza',
+    }, // Changed from SVG to PNG
     {'imagePath': 'assets/images/delivery_guy.png', 'title': 'Drinks'},
     {'imagePath': 'assets/images/burger.png', 'title': 'Salads'},
     {'imagePath': 'assets/images/burger.png', 'title': 'Desserts'},
@@ -28,7 +31,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   // Helper function to build image widget
-  Widget _buildImageWidget(String imagePath, {double? width, double? height, BoxFit? fit}) {
+  Widget _buildImageWidget(
+    String imagePath, {
+    double? width,
+    double? height,
+    BoxFit? fit,
+  }) {
     if (_isSvgImage(imagePath)) {
       return SvgPicture.asset(
         imagePath,
@@ -52,13 +60,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
       backgroundColor: Colors.grey.shade100,
       appBar: AppBar(
         backgroundColor: Colors.grey.shade100,
-        leading: Icon(Icons.menu, size: 24),
         actions: [
           GestureDetector(
-            onTap: () {},
+            onTap: () {
+              Navigator.pushNamed(context, '/logout');
+            },
             child: Container(
-              height: 32,
-              width: 32,
+              height: 48,
+              width: 48,
               margin: EdgeInsets.only(right: 16),
               child: CircleAvatar(
                 radius: 16,
@@ -67,6 +76,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
           ),
         ],
+      ),
+      drawer: Drawer(
+        child: Padding(
+          padding: const EdgeInsets.all(48),
+          child: ListView(
+            children: [Text('help Center', style: TextStyle(fontSize: 16))],
+          ),
+        ),
       ),
 
       body: SingleChildScrollView(
